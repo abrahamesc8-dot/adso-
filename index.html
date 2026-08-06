@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llamado a funciones y salida de js a HTML</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Llamado a funciones y salida de js a HTML</h1>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="inputDato">Dato:</label>
+                <input type="text" id="inputDato" value="Rider">
+            </div>
+            <button id="btnLlamaFuncion">llamaFunción</button>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="inputNum1">Número 1:</label>
+                <input type="text" id="inputNum1" value="5">
+            </div>
+            <div class="form-group">
+                <label for="inputNum2">Número 2:</label>
+                <input type="text" id="inputNum2" value="2">
+            </div>
+            <button id="btnCalcular">Calcular</button>
+        </div>
+
+        <!-- Sección agregada según la nueva imagen -->
+        <div class="resultados">
+            <h3>Al presionar botón aquí aparecerá resultado</h3>
+            <p id="pfoSalida">Dato resultante en párrafo - ingresado en caja</p>
+            <div id="divSalidaSuma">Dato resultado Suma en contenedor</div>
+            <div id="divSalidaResta">Dato Resultado Resta en contenedor</div>
+            <div id="divSalidaMultiplica">Resultado multiplicación</div>
+            <div id="divSalidaDivision">Resultado división</div>
+            <div id="divSalidaCoseno">Resultado del coseno</div>
+            <div id="divSalidaSeno">Resultado del seno</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ejemplo background-attachment: scroll | fixed | local</title>
+  <style>
+    :root{
+      --primary:#0f172a; /* fondo header */
+      --card-a:#ff9a9e;
+      --card-b:#fad0c4;
+      --card-c:#a18cd1;
+      --cell-height:320px;
+      --gap:1.2rem;
+      --radius:22px;
+      --shadow:0 20px 60px rgba(15,23,42,.15);
+      --bg-scroll: url("https://plus.unsplash.com/premium_photo-1711031505781-2a45c879ceac?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm90b2dyYWZpYSUyMGFydGlzdGljYXxlbnwwfHwwfHx8MA%3D%3D");
+      --bg-fixed: url("https://plus.unsplash.com/premium_photo-1711031505781-2a45c879ceac?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm90b2dyYWZpYSUyMGFydGlzdGljYXxlbnwwfHwwfHx8MA%3D%3D");
+      --bg-local: url("https://plus.unsplash.com/premium_photo-1711031505781-2a45c879ceac?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm90b2dyYWZpYSUyMGFydGlzdGljYXxlbnwwfHwwfHx8MA%3D%3D");
+    }
+
+    *{box-sizing:border-box}
+    body {
+      margin:0;
+      min-height:100vh;
+      font-family: system-ui, "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #c3dafe 0%, #8b9eff 35%, #d8b4ff 70%, #ffe4ff 100%);
+      background-size: 300% 300%;
+      animation: surfaceFlow 20s ease infinite;
+      color:#102a43;
+    }
+    header {
+      padding:1.15rem 1rem;
+      background: linear-gradient(110deg, #132f4c, #0b1b33 55%, #15223d);
+      color:#fff;
+      display:flex;
+      gap:1rem;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+    }
+    .controls{display:flex; flex-wrap:wrap; gap:.75rem; align-items:center}
+    .controls label{color:#e2e8f0; font-size:.92rem}
+    .controls input[type=range]{width:140px}
+
+    .wrapper { display:flex; gap:var(--gap); padding:1.5rem; box-sizing:border-box; }
+    .card {
+      flex:1;
+      border-radius:var(--radius);
+      height:var(--cell-height);
+      overflow-y:scroll;
+      position:relative;
+      box-shadow:0 28px 80px rgba(15,23,42,.24), inset 0 0 0 1px rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.45);
+      transition: transform .28s ease, box-shadow .28s ease, background-position .18s ease, border-color .28s ease;
+      background-clip: padding-box;
+      background-origin: border-box;
+      background-position: center;
+      background-size: cover;
+      background-blend-mode: overlay;
+      transform-style: preserve-3d;
+    }
+    .card:hover{transform: translateY(-14px) scale(1.01); box-shadow:0 36px 98px rgba(15,23,42,.28);}
+    .card::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      pointer-events:none;
+      background: radial-gradient(circle at var(--mouseX,50%) var(--mouseY,50%), rgba(255,255,255,.45), rgba(255,255,255,0) 35%);
+      opacity:0.65;
+      mix-blend-mode: screen;
+      transition: opacity .2s ease, background-position .2s ease;
+    }
+    .card:hover::before{opacity:.78;}
+    .label { position:absolute; left:16px; top:16px; background:rgba(255,255,255,0.92); padding:8px 12px; border-radius:999px; font-weight:700; font-size:.95rem; color:#111; box-shadow:0 10px 28px rgba(0,0,0,.12); }
+
+    /* fondos diferenciados por tarjeta usando variables */
+    .card.bg { background-repeat: no-repeat; background-position: center; }
+     /* ahora permiten usar una imagen vía variable CSS --bg-scroll/--bg-fixed/--bg-local
+       por ejemplo: :root{ --bg-scroll: url("ruta/imagen.jpg"); } */
+       
+    /* aplicar un linear-gradient hacia la derecha sobre cada fondo (overlay) */
+    .scroll { background-image: linear-gradient(135deg, rgba(255,255,255,0.36), rgba(255,255,255,0.04) 42%, rgba(15,23,42,0.18)), linear-gradient(to right, rgba(255,255,255,0.42), rgba(255,255,255,0) 90%), var(--bg-scroll, repeating-linear-gradient(135deg, var(--card-a) 0 30px, var(--card-b) 30px 60px)); background-attachment: scroll; }
+    .fixed { background-image: linear-gradient(135deg, rgba(0,0,0,0.28), rgba(255,255,255,0.06) 42%), linear-gradient(to right, rgba(0,0,0,0.24), rgba(0,0,0,0) 90%), var(--bg-fixed, repeating-linear-gradient(135deg, var(--card-b) 0 30px, var(--card-c) 30px 60px)); background-attachment: fixed; }
+    .local { background-image: linear-gradient(135deg, rgba(255,255,255,0.32), rgba(255,255,255,0.02) 42%, rgba(15,23,42,0.14)), linear-gradient(to right, rgba(255,255,255,0.36), rgba(255,255,255,0) 90%), var(--bg-local, repeating-linear-gradient(135deg, var(--card-c) 0 30px, var(--card-a) 30px 60px)); background-attachment: local; }
+
+    .content { padding:4rem 1rem 1rem; line-height:1.7; color:#102a43; }
+
+    @keyframes surfaceFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    /* responsive */
+    @media (max-width:900px){ .wrapper{flex-direction:column} }
+  </style>
+  <script>
+    function applySettings(){
+      const size = document.getElementById('size').value + 'px'
+      const a = document.getElementById('colorA').value
+      const b = document.getElementById('colorB').value
+      const c = document.getElementById('colorC').value
+      document.documentElement.style.setProperty('--cell-height', size)
+      document.documentElement.style.setProperty('--card-a', a)
+      document.documentElement.style.setProperty('--card-b', b)
+      document.documentElement.style.setProperty('--card-c', c)
+    }
+
+    function attachMotionEffect(){
+      const cards = document.querySelectorAll('.card.bg')
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect()
+          const x = e.clientX - rect.left
+          const y = e.clientY - rect.top
+          const moveX = (x / rect.width - 0.5) * 18
+          const moveY = (y / rect.height - 0.5) * 18
+          card.style.transform = `translateY(-10px) rotateX(${ -moveY }deg) rotateY(${ moveX }deg)`
+          card.style.backgroundPosition = `${50 + moveX}% ${50 + moveY}%`
+          card.style.setProperty('--mouseX', `${(x / rect.width) * 100}%`)
+          card.style.setProperty('--mouseY', `${(y / rect.height) * 100}%`)
+          card.style.boxShadow = `0 ${20 - moveY}px ${50 + Math.abs(moveY)}px rgba(15,23,42,0.22)`
+        })
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = ''
+          card.style.backgroundPosition = 'center'
+          card.style.boxShadow = ''
+        })
+      })
+    }
+
+    window.addEventListener('DOMContentLoaded', ()=>{
+      document.getElementById('apply').addEventListener('click', applySettings)
+      attachMotionEffect()
+    })
+  </script>
+</head>
+<body>
+  <header>
+    <div>Ejemplo background-attachment: scroll, fixed y local</div>
+    <div class="controls">
+      <label for="size">Tamaño:</label>
+      <input id="size" type="range" min="200" max="800" value="320">
+      <label for="colorA">A</label><input id="colorA" type="color" value="#ff9a9e">
+      <label for="colorB">B</label><input id="colorB" type="color" value="#fad0c4">
+      <label for="colorC">C</label><input id="colorC" type="color" value="#a18cd1">
+      <button id="apply" type="button">Aplicar</button>
+    </div>
+
+  </header>
+
+  <div class="wrapper">
+    <div class="card bg scroll">
+      <div class="label">background-attachment: scroll</div>
+      <div class="content">
+        <p>El fondo se desplaza con el elemento. Si haces scroll en la página verás que el patrón se mueve junto al contenedor.</p>
+        <!-- generar suficiente contenido -->
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, illum.</p>
+        <p>Más contenido para forzar el scroll en la página principal.</p>
+        <p>Texto de ejemplo.</p>
+        <p>Linea 1</p>
+        <p>Linea 2</p>
+        <p>Linea 3</p>
+        <p>Linea 4</p>
+        <p>Linea 5</p>
+        <p>Linea 6</p>
+        <p>Linea 7</p>
+        <p>Linea 8</p>
+      </div>
+    </div>
+
+    <div class="card bg fixed">
+      <div class="label">background-attachment: fixed</div>
+      <div class="content">
+        <p>El fondo queda fijo respecto a la ventana. Al hacer scroll, el patrón no se mueve.</p>
+        <p>Prueba a desplazar la página para notar la diferencia.</p>
+        <p>Texto adicional para generar scroll en la página principal.</p>
+        <p>Linea 1</p>
+        <p>Linea 2</p>
+        <p>Linea 3</p>
+        <p>Linea 4</p>
+        <p>Linea 5</p>
+        <p>Linea 6</p>
+        <p>Linea 7</p>
+        <p>Linea 8</p>
+      </div>
+    </div>
+
+    <div class="card bg local">
+      <div class="label">background-attachment: local</div>
+      <div class="content">
+        <p>El fondo se desplaza con el contenido interno del elemento cuando éste tiene overflow.</p>
+        <p>Haz scroll dentro de este cuadro y verás que el patrón se mueve junto al contenido del propio contenedor.</p>
+        <p>Linea 1</p>
+        <p>Linea 2</p>
+        <p>Linea 3</p>
+        <p>Linea 4</p>
+        <p>Linea 5</p>
+        <p>Linea 6</p>
+        <p>Linea 7</p>
+        <p>Linea 8</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+

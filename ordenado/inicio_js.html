@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llamado a funciones y salida de JS a HTML</title>
+
+    <style>
+        body {
+            font-family: Georgia, serif;
+            background: white;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 55px;
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        .contenedor {
+            width: 90%;
+            margin: auto;
+        }
+
+        .fila {
+            margin-bottom: 50px;
+        }
+
+        label {
+            font-size: 22px;
+        }
+
+        input {
+            width: 260px;
+            height: 32px;
+            font-size: 18px;
+            color: #000;
+            border: 1px solid #999;
+            padding: 4px 8px;
+            background: #fff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #666;
+        }
+
+        input:invalid {
+            box-shadow: none;
+        }
+
+        button {
+            height: 36px;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 12px;
+        }
+
+        #resultado,
+        #resultado2 {
+            margin-top: 20px;
+            font-size: 24px;
+            color: blue;
+        }
+    </style>
+
+    <script>
+        function llamarFuncion() {
+            let dato = document.getElementById("dato").value.trim();
+
+            if (dato === "") {
+                document.getElementById("resultado").textContent =
+                    "Por favor escribe un dato.";
+                return;
+            }
+
+            document.getElementById("resultado").textContent =
+                "Hola " + dato + ", esta es la salida de JavaScript.";
+        }
+
+        function calcular() {
+            let n1 = parseFloat(document.getElementById("n1").value);
+            let n2 = parseFloat(document.getElementById("n2").value);
+
+            if (isNaN(n1) || isNaN(n2)) {
+                document.getElementById("resultado2").textContent =
+                    "Por favor ingresa dos números válidos.";
+                return;
+            }
+
+            let suma = n1 + n2;
+
+            document.getElementById("resultado2").textContent =
+                "Resultado: " + suma;
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>Llamado a funciones y salida de JS a HTML</h1>
+
+    <div class="contenedor">
+
+        <div class="fila">
+            <label for="dato">Dato:</label>
+
+            <input
+                type="text"
+                id="dato"
+                placeholder="Escriba un dato">
+
+            <button type="button" onclick="llamarFuncion()">
+                Llama Función
+            </button>
+
+            <div id="resultado"></div>
+        </div>
+
+        <div class="fila">
+            <label for="n1">Número 1:</label>
+
+            <input
+                type="number"
+                id="n1"
+                step="any">
+
+            <label for="n2">Número 2:</label>
+
+            <input
+                type="number"
+                id="n2"
+                step="any">
+
+            <button type="button" onclick="calcular()">
+                Calcular
+            </button>
+
+            <div id="resultado2"></div>
+        </div>
+
+    </div>
+    
+    <h3>Al presionar aqui aparecera el resultado</h3>
+    <p id="resultado">Dato resultado - ingreso</p>
+    
+
+
+    
+</body>
+</html>
