@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejemplos de Sombras en CSS</title>
+    <link rel="stylesheet" href="shadows.css" />
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- CONTROLES GLOBALES OCULTOS PARA EL HACK CSS -->
+        <input type="checkbox" id="neon-toggle" name="neon-toggle" class="global-toggle" checked />
+        <input type="checkbox" id="inner-toggle" name="inner-toggle" class="global-toggle" checked />
+
+        <div class="content">
+            <h1>Cyberpunk Neumorphism (box-shadow)</h1>
+            
+            <!-- TARJETAS PRINCIPALES (Con formularios integrados) -->
+            <div class="container">
+                
+                <div class="card outer-shadow">
+                    <h2>Outer Shadow</h2>
+                    <p>Sombra exterior clásica.</p>
+                    <div class="demo-form">
+                        <!-- Controla el Neon Global -->
+                        <div class="input-group">
+                            <label for="neon-toggle" class="custom-checkbox-label label-neon-toggle">
+                                <span class="checkmark cyan-neon">&nbsp;</span>
+                                Activar Neón Global
+                            </label>
+                        </div>
+                        
+                        <!-- Checkbox Normal -->
+                        <div class="input-group mt-10">
+                            <input type="checkbox" id="simple-check" name="simple-check" class="hidden-input" />
+                            <label for="simple-check" class="custom-checkbox-label">
+                                <span class="checkmark cyan-neon">&nbsp;</span>
+                                Checkbox Simple
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card inner-shadow">
+                    <h2>Inner Shadow</h2>
+                    <p>Sombra interior con <code>inset</code>.</p>
+                    <div class="demo-form">
+                        <!-- Controla el Inset Global -->
+                        <div class="input-group">
+                            <label for="inner-toggle" class="custom-checkbox-label label-inner-toggle">
+                                <span class="checkmark magenta-neon">&nbsp;</span>
+                                Activar Inset Global
+                            </label>
+                        </div>
+                        
+                        <!-- Radios Normales para demostrar el funcionamiento -->
+                        <div class="input-group mt-10">
+                            <input type="radio" id="radio-1" name="demo-radio" value="opcion1" class="hidden-input" checked />
+                            <label for="radio-1" class="custom-radio-label">
+                                <span class="radiomark magenta-neon">&nbsp;</span>
+                                Radio 1
+                            </label>
+                        </div>
+                        <div class="input-group mt-5">
+                            <input type="radio" id="radio-2" name="demo-radio" value="opcion2" class="hidden-input" />
+                            <label for="radio-2" class="custom-radio-label">
+                                <span class="radiomark magenta-neon">&nbsp;</span>
+                                Radio 2
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card neumorphism">
+                    <h2>Neumorfismo</h2>
+                    <p>Combinación de sombras. Usa Ctrl para varias opciones.</p>
+                    <div class="demo-form w-100">
+                        <select id="multi-select" name="multi-select" class="custom-select" multiple aria-label="Selección múltiple">
+                            <option value="1" selected>Elemento 1</option>
+                            <option value="2">Elemento 2</option>
+                            <option value="3" selected>Elemento 3</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- EXPLICACIONES -->
+            <div class="explanation">
+                <h2>¿Qué hace cada propiedad?</h2>
+                <div class="grid">
+                    <div class="info-card cyan-card">
+                        <h3>👇 <code>inset</code> (Sombra Interior)</h3>
+                        <p>Es una palabra clave que se usa dentro de <code>box-shadow</code>. Invierte la sombra para que se dibuje por <strong>dentro</strong> de la caja en lugar de por fuera.</p>
+                    </div>
+                    
+                    <div class="info-card magenta-card">
+                        <h3>🔍 <code>scale()</code> (Escalar)</h3>
+                        <p>Se usa dentro de la propiedad <code>transform</code>. Permite aumentar o disminuir el tamaño visual del elemento.</p>
+                    </div>
+
+                    <div class="info-card green-card">
+                        <h3>🚀 <code>translate()</code> (Mover)</h3>
+                        <p>Se usa dentro de <code>transform</code> para desplazar un elemento. Por ejemplo, <code>translate(0px, -15px)</code> lo mueve hacia arriba.</p>
+                    </div>
+
+                    <div class="info-card yellow-card">
+                        <h3>🖱️ <code>:hover</code> (Al pasar el ratón)</h3>
+                        <p>Es un "estado" que aplica estilos SÓLO cuando el puntero está encima. Combinado con <code>transition</code>, crea animaciones.</p>
+                    </div>
+
+                    <div class="info-card cyan-card">
+                        <h3>☑️ Checkboxes</h3>
+                        <p>Ocultamos el checkbox original y creamos uno falso. Usamos la pseudoclase <code>:checked</code> para encender el neón interior.</p>
+                    </div>
+
+                    <div class="info-card magenta-card">
+                        <h3>🔘 Radio Buttons</h3>
+                        <p>Igual que el checkbox pero agrupados por el atributo <code>name</code> para que solo puedas elegir uno. Tienen <code>border-radius: 50%</code>.</p>
+                    </div>
+
+                    <div class="info-card green-card">
+                        <h3>🗂️ Select Múltiple</h3>
+                        <p>El atributo <code>multiple</code> permite seleccionar varias opciones. Usamos sombras hundidas para enmarcar las selecciones brillantes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRIQUI (TIC-TAC-TOE) ESTATICO - IMAGEN MADERA -->
+            <div class="triqui-container">
+                <h2 class="triqui-title">Triqui</h2>
+                <div class="triqui-board">
+                    <!-- Fila 1: O X O -->
+                    <div class="triqui-slot"><div class="triqui-piece piece-o"></div></div>
+                    <div class="triqui-slot"><div class="triqui-piece piece-x"></div></div>
+                    <div class="triqui-slot"><div class="triqui-piece piece-o"></div></div>
+                    
+                    <!-- Fila 2: O X X -->
+                    <div class="triqui-slot"><div class="triqui-piece piece-o"></div></div>
+                    <div class="triqui-slot"><div class="triqui-piece piece-x"></div></div>
+                    <div class="triqui-slot"><div class="triqui-piece piece-x"></div></div>
+                    
+                    <!-- Fila 3: O X X -->
+                    <div class="triqui-slot"><div class="triqui-piece piece-o"></div></div>
+                    <div class="triqui-slot"><div class="triqui-piece piece-x"></div></div>
+                    <div class="triqui-slot"><div class="triqui-piece piece-x"></div></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

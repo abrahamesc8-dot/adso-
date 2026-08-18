@@ -1,0 +1,782 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+    --bg-color: #1a1c23;
+    --card-bg: #1a1c23;
+    
+    /* Neumorphic Base Shadows */
+    --shadow-light: #262a34;
+    --shadow-dark: #0e0f12;
+    
+    /* Neon Base Colors */
+    --neon-cyan: #00ffff;
+    --neon-magenta: #ff00ff;
+    --neon-green: #00ffaa;
+    --neon-yellow: #ffee00;
+
+    /* Glow Variables */
+    --glow-cyan-1: 0px 0px 20px rgba(0, 255, 255, 0.2);
+    --glow-cyan-2: 0px 0px 25px rgba(0, 255, 255, 0.3);
+    --glow-cyan-inset: inset 0px 0px 15px rgba(0, 255, 255, 0.2);
+    --glow-text-cyan: 0px 0px 8px var(--neon-cyan);
+    --glow-text-cyan-lg: 0px 0px 10px var(--neon-cyan);
+
+    --glow-magenta-1: inset 0px 0px 20px rgba(255, 0, 255, 0.2);
+    --glow-magenta-2: 0px 0px 25px rgba(255, 0, 255, 0.3);
+    --glow-magenta-inset: inset 0px 0px 15px rgba(255, 0, 255, 0.2);
+    --glow-text-magenta: 0px 0px 8px var(--neon-magenta);
+    --glow-text-magenta-lg: 0px 0px 10px var(--neon-magenta);
+
+    --glow-green-1: inset 0px 0px 30px rgba(0, 255, 170, 0.3);
+    --glow-green-2: 0px 0px 25px rgba(0, 255, 170, 0.3);
+    --glow-green-inset: inset 0px 0px 15px rgba(0, 255, 170, 0.2);
+    --glow-text-green: 0px 0px 15px var(--neon-green);
+    --glow-text-green-lg: 0px 0px 10px var(--neon-green);
+
+    --glow-yellow-2: 0px 0px 25px rgba(255, 238, 0, 0.3);
+    --glow-yellow-inset: inset 0px 0px 15px rgba(255, 238, 0, 0.2);
+    --glow-text-yellow: 0px 0px 10px var(--neon-yellow);
+
+    --border-cyan: rgba(0, 255, 255, 0.5);
+    --border-magenta: rgba(255, 0, 255, 0.5);
+    --border-green: rgba(0, 255, 170, 0.5);
+    --border-yellow: rgba(255, 238, 0, 0.5);
+
+    --select-bg: rgba(0, 255, 170, 0.15);
+
+    /* Inset Variables */
+    --inner-light: var(--shadow-light);
+    --inner-dark: var(--shadow-dark);
+}
+
+/* =========================================
+   TOGGLE LOGIC (CSS Checkbox Hack)
+   ========================================= */
+.global-toggle {
+    display: none;
+}
+
+/* Kill all Neon when un-checked */
+#neon-toggle:not(:checked) ~ .content {
+    --neon-cyan: #475569;
+    --neon-magenta: #475569;
+    --neon-green: #475569;
+    --neon-yellow: #475569;
+
+    --glow-cyan-1: 0px 0px 0px transparent;
+    --glow-cyan-2: 0px 0px 0px transparent;
+    --glow-cyan-inset: inset 0px 0px 0px transparent;
+    --glow-text-cyan: 0px 0px 0px transparent;
+    --glow-text-cyan-lg: 0px 0px 0px transparent;
+
+    --glow-magenta-1: inset 0px 0px 0px transparent;
+    --glow-magenta-2: 0px 0px 0px transparent;
+    --glow-magenta-inset: inset 0px 0px 0px transparent;
+    --glow-text-magenta: 0px 0px 0px transparent;
+    --glow-text-magenta-lg: 0px 0px 0px transparent;
+
+    --glow-green-1: inset 0px 0px 0px transparent;
+    --glow-green-2: 0px 0px 0px transparent;
+    --glow-green-inset: inset 0px 0px 0px transparent;
+    --glow-text-green: 0px 0px 0px transparent;
+    --glow-text-green-lg: 0px 0px 0px transparent;
+
+    --glow-yellow-2: 0px 0px 0px transparent;
+    --glow-yellow-inset: inset 0px 0px 0px transparent;
+    --glow-text-yellow: 0px 0px 0px transparent;
+
+    --border-cyan: transparent;
+    --border-magenta: transparent;
+    --border-green: transparent;
+    --border-yellow: transparent;
+    
+    --select-bg: transparent;
+}
+
+/* Kill all Inset Shadows when un-checked */
+#inner-toggle:not(:checked) ~ .content {
+    --inner-light: transparent;
+    --inner-dark: transparent;
+}
+
+/* =========================================
+   BASE STYLES
+   ========================================= */
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #0a001a; /* Fondo ultra oscuro para resaltar el neon */
+    color: #e2e8f0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 60px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin-bottom: 50px;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+/* =========================================
+   TOP CARDS: NEON + NEUMORPHISM
+   ========================================= */
+.card {
+    background-color: var(--card-bg);
+    width: 290px;
+    min-height: 400px;
+    height: auto;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    box-sizing: border-box;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border: none;
+    position: relative;
+}
+
+.card h2 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #94a3b8;
+    margin-bottom: 25px;
+}
+
+.demo-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: auto;
+}
+
+/* 1. Outer Shadow (Extruded) + Cyan Neon */
+.outer-shadow {
+    box-shadow: 10px 10px 20px var(--shadow-dark), 
+               -10px -10px 20px var(--shadow-light);
+}
+.outer-shadow h2 {
+    color: var(--neon-cyan);
+    text-shadow: var(--glow-text-cyan);
+}
+.outer-shadow:hover {
+    transform: translateY(-10px);
+    box-shadow: 15px 15px 30px var(--shadow-dark), 
+               -15px -15px 30px var(--shadow-light),
+               var(--glow-cyan-1);
+}
+
+/* 2. Inner Shadow (Depressed) + Magenta Neon */
+.inner-shadow {
+    box-shadow: inset 10px 10px 20px var(--inner-dark),
+                inset -10px -10px 20px var(--inner-light);
+}
+.inner-shadow h2 {
+    color: var(--neon-magenta);
+    text-shadow: var(--glow-text-magenta);
+}
+.inner-shadow:hover {
+    box-shadow: inset 15px 15px 30px var(--inner-dark),
+                inset -15px -15px 30px var(--inner-light),
+                var(--glow-magenta-1);
+}
+
+/* 3. Interactive Neumorphism + Green Neon */
+.neumorphism {
+    box-shadow: 10px 10px 20px var(--shadow-dark), 
+               -10px -10px 20px var(--shadow-light);
+}
+.neumorphism h2 {
+    color: var(--neon-green);
+}
+.neumorphism:hover {
+    transform: scale(0.96);
+    box-shadow: inset 10px 10px 20px var(--inner-dark),
+                inset -10px -10px 20px var(--inner-light),
+                var(--glow-green-1);
+}
+.neumorphism:hover h2 {
+    text-shadow: var(--glow-text-green);
+}
+
+/* =========================================
+   UTILITY CLASSES
+   ========================================= */
+.mt-10 { margin-top: 10px; }
+.mt-5 { margin-top: 5px; }
+.w-100 { width: 100%; }
+
+/* =========================================
+   FORM ELEMENTS (Checkboxes, Radios, Selects)
+   ========================================= */
+
+.hidden-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox-label, .custom-radio-label {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 36px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #94a3b8;
+    transition: color 0.3s;
+}
+
+.custom-checkbox-label:hover, .custom-radio-label:hover {
+    color: #ffffff;
+}
+
+.checkmark, .radiomark {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: var(--card-bg);
+    box-shadow: inset 4px 4px 8px var(--shadow-dark),
+                inset -4px -4px 8px var(--shadow-light);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    color: transparent;
+    font-size: 0px;
+}
+
+.checkmark {
+    border-radius: 6px;
+}
+
+.radiomark {
+    border-radius: 50%;
+}
+
+/* The actual tick mark */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid transparent;
+    border-width: 0px 2px 2px 0px;
+    transform: rotate(45deg);
+}
+
+.cyan-neon.checkmark:after {
+    border-color: var(--neon-cyan);
+    box-shadow: 2px 2px 2px rgba(0, 255, 255, 0.2);
+}
+
+.magenta-neon.checkmark:after {
+    border-color: var(--neon-magenta);
+    box-shadow: 2px 2px 2px rgba(255, 0, 255, 0.2);
+}
+
+/* Inner Radio Dot */
+.radiomark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--neon-magenta);
+    box-shadow: 0px 0px 8px var(--neon-magenta);
+}
+
+/* Checkbox Normal Checked */
+.hidden-input:checked + .custom-checkbox-label .checkmark.cyan-neon {
+    box-shadow: inset 2px 2px 5px var(--shadow-dark),
+                inset -2px -2px 5px var(--shadow-light),
+                var(--glow-cyan-inset), 
+                0px 0px 8px var(--neon-cyan);
+    border: 1px solid var(--neon-cyan);
+}
+.hidden-input:checked + .custom-checkbox-label .checkmark:after {
+    display: block;
+}
+
+/* Radio Normal Checked */
+.hidden-input:checked + .custom-radio-label .radiomark.magenta-neon {
+    box-shadow: inset 2px 2px 5px var(--shadow-dark),
+                inset -2px -2px 5px var(--shadow-light),
+                var(--glow-magenta-inset), 
+                0px 0px 8px var(--neon-magenta);
+    border: 1px solid var(--neon-magenta);
+}
+.hidden-input:checked + .custom-radio-label .radiomark:after {
+    display: block;
+}
+
+/* NEON TOGGLE CHECKED (Label hack override) */
+#neon-toggle:checked ~ .content .label-neon-toggle .checkmark {
+    box-shadow: inset 2px 2px 5px var(--shadow-dark),
+                inset -2px -2px 5px var(--shadow-light),
+                var(--glow-cyan-inset), 
+                0px 0px 8px var(--neon-cyan);
+    border: 1px solid var(--neon-cyan);
+}
+#neon-toggle:checked ~ .content .label-neon-toggle .checkmark:after {
+    display: block;
+}
+
+/* INNER TOGGLE CHECKED (Label hack override) */
+#inner-toggle:checked ~ .content .label-inner-toggle .checkmark {
+    box-shadow: inset 2px 2px 5px var(--shadow-dark),
+                inset -2px -2px 5px var(--shadow-light),
+                var(--glow-magenta-inset), 
+                0px 0px 8px var(--neon-magenta);
+    border: 1px solid var(--neon-magenta);
+}
+#inner-toggle:checked ~ .content .label-inner-toggle .checkmark:after {
+    display: block;
+}
+
+/* Select Multiple */
+.custom-select {
+    width: 100%;
+    height: 110px;
+    background-color: var(--card-bg);
+    color: #94a3b8;
+    border: none;
+    border-radius: 12px;
+    padding: 10px;
+    font-family: inherit;
+    outline: none;
+    box-shadow: inset 6px 6px 12px var(--inner-dark),
+                inset -6px -6px 12px var(--inner-light);
+}
+
+.custom-select::-webkit-scrollbar {
+    width: 8px;
+}
+.custom-select::-webkit-scrollbar-track {
+    background: var(--bg-color);
+    border-radius: 10px;
+}
+.custom-select::-webkit-scrollbar-thumb {
+    background: var(--shadow-light);
+    border-radius: 10px;
+}
+
+.custom-select option {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.custom-select option:checked {
+    background: var(--select-bg);
+    color: var(--neon-green);
+    text-shadow: var(--glow-text-green);
+}
+
+/* =========================================
+   BOTTOM GRID: INFO CARDS
+   ========================================= */
+.explanation {
+    max-width: 1100px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.explanation h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 50px;
+    font-weight: 600;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.info-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 8px 8px 16px var(--shadow-dark), 
+               -8px -8px 16px var(--shadow-light);
+    border: 1px solid transparent; 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card h3 {
+    margin-top: 0;
+    font-size: 1.15rem;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.info-card p {
+    font-size: 0.90rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin: 0;
+}
+
+.cyan-card h3 { color: var(--neon-cyan); }
+.magenta-card h3 { color: var(--neon-magenta); }
+.green-card h3 { color: var(--neon-green); }
+.yellow-card h3 { color: var(--neon-yellow); }
+
+.info-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    cursor: pointer;
+}
+
+.cyan-card:hover {
+    border-color: var(--border-cyan);
+    box-shadow: inset 5px 5px 15px var(--inner-dark),
+                inset -5px -5px 15px var(--inner-light),
+                var(--glow-cyan-2),
+                var(--glow-cyan-inset);
+}
+.cyan-card:hover h3 { text-shadow: var(--glow-text-cyan-lg); }
+
+.magenta-card:hover {
+    border-color: var(--border-magenta);
+    box-shadow: inset 5px 5px 15px var(--inner-dark),
+                inset -5px -5px 15px var(--inner-light),
+                var(--glow-magenta-2),
+                var(--glow-magenta-inset);
+}
+.magenta-card:hover h3 { text-shadow: var(--glow-text-magenta-lg); }
+
+.green-card:hover {
+    border-color: var(--border-green);
+    box-shadow: inset 5px 5px 15px var(--inner-dark),
+                inset -5px -5px 15px var(--inner-light),
+                var(--glow-green-2),
+                var(--glow-green-inset);
+}
+.green-card:hover h3 { text-shadow: var(--glow-text-green-lg); }
+
+.yellow-card:hover {
+    border-color: var(--border-yellow);
+    box-shadow: inset 5px 5px 15px var(--inner-dark),
+                inset -5px -5px 15px var(--inner-light),
+                var(--glow-yellow-2),
+                var(--glow-yellow-inset);
+}
+.yellow-card:hover h3 { text-shadow: var(--glow-text-yellow); }
+
+/* =========================================
+   TRIQUI (TIC-TAC-TOE) ESTATICO - REPLICA EXACTA FOTO 1
+   ========================================= */
+
+.triqui-container {
+    position: relative; /* Necesario para posicionar el cuadro trasero */
+    --bg-color: #e5d3b3;     /* Madera clara original */
+    --hole-color: #d1bfa1;   /* Madera del hueco original */
+    --piece-x: #2da2f1;      /* Azul brillante original */
+    --piece-o: #ffffff;      /* Blanco original */
+    
+    background-color: var(--bg-color);
+    /* GROSOR REDUCIDO PROPORCIONALMENTE DE LA TABLA SUPERIOR */
+    box-shadow: 
+        1px 1px 0px #d9c6a5,
+        2px 2px 0px #ccb997,
+        3px 3px 0px #c0ac89,
+        4px 4px 10px rgba(0,0,0,0.8); /* Sombra sobre la madera de abajo */
+    border-radius: 12px;
+    padding: 15px; /* Borde exterior escalado */
+    margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw; /* Para evitar overflow en m\u00f3viles */
+    
+    /* EFECTO 3D DE TABLERO EN PERSPECTIVA HACIA LA DERECHA (Suavizado) */
+    transform: perspective(1000px) rotateX(10deg) rotateY(-15deg);
+    transform-style: preserve-3d;
+}
+
+/* La segunda madera (la tabla base) */
+.triqui-container::before {
+    content: "";
+    position: absolute;
+    /* Borde proporcional escalado (de 40px a 15px) */
+    top: -15px;
+    bottom: -15px;
+    left: -15px;
+    right: -15px;
+    
+    background-color: #d1bfa1; 
+    
+    /* Textura de la tabla inferior */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.03) 0px,
+        rgba(0,0,0,0.03) 2px,
+        transparent 2px,
+        transparent 5px
+    );
+    border-radius: 15px; 
+    
+    z-index: -1;
+    
+    /* GROSOR DE LA TABLA INFERIOR escalado */
+    box-shadow: 
+        1px 1px 0px #c7b08b,
+        2px 2px 0px #bba37f,
+        3px 3px 0px #b09773,
+        4px 4px 0px #a48a68,
+        5px 5px 0px #987d5d,
+        6px 6px 15px rgba(0,0,0,0.6);
+}
+
+/* ========================================================
+   FONDO ULTRA-COMPLEJO: KALEIDOSCOPIO L\u00cdQUIDO Y NE\u00d3N
+   ======================================================== */
+body::before, body::after, .main-wrapper::before, .main-wrapper::after {
+    content: "";
+    position: fixed;
+    top: -50vh; bottom: -50vh; left: -50vw; right: -50vw;
+    z-index: -10;
+    pointer-events: none;
+}
+
+/* Capa 1: Nebulosa l\u00edquida de fondo (Overlay) */
+body::before {
+    background: 
+        radial-gradient(circle at 30% 30%, #4a00e0 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, #8e2de2 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, #f000ff 0%, transparent 60%);
+    background-size: 150% 150%;
+    mix-blend-mode: overlay;
+    animation: liquidNebula 15s ease-in-out infinite alternate;
+    filter: blur(40px);
+}
+
+/* Capa 2: Geometr\u00eda Caleidosc\u00f3pica (Difference = Crea patr\u00f3n de Moir\u00e9 matem\u00e1tico) */
+body::after {
+    background: repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        #00ffff 0%,
+        #ff0055 5%,
+        transparent 10%,
+        #7000ff 15%
+    );
+    mix-blend-mode: difference;
+    animation: spinFast 25s linear infinite;
+    filter: blur(2px);
+    opacity: 0.8;
+}
+
+/* Capa 3: Rayos inversos de ne\u00f3n (Color-Dodge = Quemadura de luz intensa hiperrealista) */
+.main-wrapper::before {
+    background: repeating-conic-gradient(
+        from 0deg at 40% 60%,
+        #ffcc00 0%,
+        transparent 8%,
+        #00ffaa 16%,
+        transparent 24%
+    );
+    mix-blend-mode: color-dodge;
+    animation: spinReverse 20s linear infinite;
+    filter: blur(5px) saturate(250%);
+    opacity: 0.7;
+}
+
+/* Capa 4: Ondas de choque radiales sutiles (Color-Dodge) */
+.main-wrapper::after {
+    background: repeating-radial-gradient(
+        circle at 50% 50%,
+        transparent 0%,
+        rgba(0, 255, 255, 0.4) 20px,
+        transparent 40px
+    );
+    mix-blend-mode: color-dodge;
+    animation: pulseShockwave 8s linear infinite;
+    filter: blur(1px);
+    opacity: 0.3;
+}
+
+@keyframes liquidNebula {
+    0% { background-position: 0% 0%; filter: blur(40px) hue-rotate(0deg); transform: scale(1); }
+    100% { background-position: 100% 100%; filter: blur(60px) hue-rotate(90deg); transform: scale(1.2); }
+}
+
+@keyframes spinFast {
+    0% { transform: rotate(0deg) scale(1.5); }
+    100% { transform: rotate(360deg) scale(1.5); }
+}
+
+@keyframes spinReverse {
+    0% { transform: rotate(360deg) scale(1.5); }
+    100% { transform: rotate(0deg) scale(1.5); }
+}
+
+@keyframes pulseShockwave {
+    0% { transform: scale(1); opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+
+
+/* Ocultamos o atenuamos el t\u00edtulo ya que no est\u00e1 en la imagen, pero lo mantenemos para contexto */
+.triqui-title {
+    color: #9c9a96;
+    text-shadow: none;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.triqui-board {
+    display: grid;
+    /* Celdas escaladas de 500x250 a 150x75 (x0.3) */
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 75px);
+    /* Entrel\u00edneas escaladas (de 35px a 10px) */
+    gap: 10px;
+    transform-style: preserve-3d;
+}
+
+.triqui-slot {
+    /* Conservamos exactamente el MISMO COLOR del cuadro pero con el efecto de madera antigua */
+    background-color: var(--hole-color);
+    background-image: 
+        repeating-linear-gradient(
+            to right,
+            rgba(100, 50, 20, 0.005) 0px,
+            rgba(100, 50, 20, 0.005) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        radial-gradient(circle at center, transparent 0%, rgba(139, 69, 19, 0.2) 60%, rgba(90, 40, 10, 0.4) 100%);
+    /* Menos border-radius: esquinas m\u00e1s cuadradas (escalado de 4px a 2px) */
+    border-radius: 2px;
+    /* Sombras combinadas escaladas */
+    box-shadow: 
+        /* Hueco hundido */
+        inset 3px 3px 5px rgba(0,0,0,0.15),
+        inset -3px -3px 5px rgba(255,255,255,0.6),
+        
+        /* Relieve 3D exterior */
+        -3px -3px 6px rgba(0, 0, 0, 0.45),
+        3px 3px 6px rgba(255, 255, 255, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    overflow: hidden;
+}
+
+
+.triqui-piece {
+    /* Las fichas se mantienen totalmente est\u00e1ticas en su lugar */
+    transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+}
+
+/* LA FICHA 'O' (ANILLO MATE CON CENTRO REDONDO) */
+.piece-o {
+    /* Escalado de 480x230 a 144x69 */
+    width: 144px; 
+    height: 69px;
+    border-radius: 50%;
+    
+    background: var(--piece-o);
+    
+    /* Sombra interior negra gruesa escalada de 10px a 3px */
+    box-shadow: inset 3px 0 0 0 rgba(0,0,0,0.85);
+    
+    /* Agujero interior escalado de 120x75 a 36x22.5 */
+    -webkit-mask-image: radial-gradient(36px 23px at center, transparent 99%, black 100%);
+    mask-image: radial-gradient(36px 23px at center, transparent 99%, black 100%);
+    
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.45));
+}
+
+/* LA FICHA 'X' (CRUZ) */
+.piece-x {
+    position: relative;
+    /* Escalado de 490x240 a 147x72 */
+    width: 147px; 
+    height: 72px;
+    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.35));
+}
+
+.piece-x:before, .piece-x:after {
+    content: "";
+    position: absolute;
+    background: var(--piece-x);
+    /* Bordeo m\u00e1ximo escalado (36px a 11px) */
+    border-radius: 11px;
+    top: 50%;
+    left: 50%;
+    /* Ajuste milim\u00e9trico escalado: 485x72 -> 145x22 */
+    width: 145px; 
+    height: 22px; 
+    margin-left: -72.5px; /* Mitad de 145px */
+    margin-top: -11px; /* Mitad de 22px */
+}
+
+/* Ángulo ajustado (22 grados) para que casi rocen la madera sin que se corten las puntas */
+.piece-x:before { transform: rotate(22deg); }
+.piece-x:after { transform: rotate(-22deg); }
