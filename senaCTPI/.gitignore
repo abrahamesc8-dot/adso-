@@ -1,0 +1,11 @@
+# Archivos del sistema y editores
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Dependencias (por si en el futuro usas Node.js)
+node_modules/
+dist/
+build/
+*.log
